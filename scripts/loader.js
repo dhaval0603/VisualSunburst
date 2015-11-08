@@ -2,18 +2,16 @@ $(document).ready(
 		function() {
 			var user = getURLParameter('user');
 			// call the php that has the php array which is json_encoded
-			var url = 'getJSONFromDb.php?user=' + user;
+			var url = 'getChartsFromDb.php?user=' + user;
 			$.getJSON(url).done(
 					function(data) {
 						// data will hold the php array as a javascript object
 						$.each(data, function(key, val) {
 							$('ul').append(
 									'<li id="' + key
-											+ '" class="nav-item"><a href="" onclick="JSONtoD3('+val.chart_json+')">'
-											+ val.chart_name + '</a></li>');
+											+ '" class="nav-item" ><a href="#" onclick="getJsonFromDB('+val.chart_id+');">'+ val.chart_name + '</a></li>');
 						});
 					});
-
 		});
 
 function getURLParameter(name) {
@@ -23,6 +21,38 @@ function getURLParameter(name) {
 			|| null;
 }
 
-function JSONtoD3(json){
-	myJson = json;
+function getJsonFromDB(chart_id){
+	var json ;
+	 $.ajax({
+	       url: "getJSONFromDb.php?chart_id="+chart_id,
+	       type: "GET",//type of posting the data
+	       success: function (data) {
+	         json = data;
+	         
+	       },
+	       error: function(xhr, ajaxOptions, thrownError){
+	    	   json=null;
+	       },
+	       async: false
+	  });
+	 jsonToD3(json);
+}
+
+function jsonToD3(json) {
+	
+	var jsonObject = JSON.parse(json);
+	$.ajax({
+	       url: "chartGenerator.php",
+	       data: {'json' : json},
+	       type: 'post',
+	       success: function (data) {
+		         $.globalEval(data);
+	    	   document.getElementById("chart").innerHTML = data;
+
+	       },
+	       error: function(xhr, ajaxOptions, thrownError){
+	    	   document.getElementById("chart").innerHTML = "Failed to Load";
+	       },
+	       async: false
+	  });
 }
