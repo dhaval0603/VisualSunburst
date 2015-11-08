@@ -35,4 +35,6 @@ function getJsonFromDB(chart_id){
 	       },
 	       async: false
 	  });
+	 
+	 location.reload();
 }

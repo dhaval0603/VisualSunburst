@@ -8,11 +8,19 @@ $query ="select chart_name,chart_json from charts where chart_id = '$chart_id' o
 $resultset = mysqli_query($db,$query) or die("Cannot execute the Select");
  
 if ($resultset) {
-	while ($record = mysqli_fetch_assoc($resultset))
+	while ($record = mysqli_fetch_assoc($resultset)) {
     $results = array("chart_name"=>$record['chart_name'],"chart_json"=>$record['chart_json']);
+    
+    $data = $record['chart_json'];
+    $file = fopen("json/sample1.json", 'w');//creates new file
+    fwrite($file, $data);
+    fclose($file);
+    
+	}
 }
 
 echo json_encode($results);
+
 mysqli_close($db);
 
 ?>
