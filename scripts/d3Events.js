@@ -27,13 +27,9 @@ var arc = d3.svg.arc()
     .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
 d3.json("json/sample1.json", function(error, root) {
-  var g = svg.selectAll("g")
-      .data(partition.nodes(root))
-    .enter().append("g");
+  var g = svg.selectAll("g").data(partition.nodes(root)).enter().append("g");
 
-  var path = g.append("path")
-    .attr("d", arc)
-    .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+  var path = g.append("path").attr("d", arc).style("fill", function(d) { return color((d.children ? d : d.parent).name); })
     .on("click", click);
 
   var text = g.append("text")
@@ -44,7 +40,6 @@ d3.json("json/sample1.json", function(error, root) {
     .text(function(d) { return d.name;});
 
   function click(d) {
-    console.log("Selected: " + d.name);
     description(d);
     // fade out all text elements
     text.transition().attr("opacity", 0);
