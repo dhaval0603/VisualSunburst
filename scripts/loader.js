@@ -7,7 +7,7 @@ $(document).ready(
 					function(data) {
 						// data will hold the php array as a javascript object
 						$.each(data, function(key, val) {
-							$('ul').append(
+							$('#navigation').append(
 									'<li id="' + key
 											+ '" class="nav-item" ><a href="#" onclick="getJsonFromDB('+val.chart_id+');">'+ val.chart_name + '</a></li>');
 						});
