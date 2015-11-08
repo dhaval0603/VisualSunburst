@@ -1,17 +1,20 @@
 <?php 
-
-$user_id = $_GET["userid"];
+ 
+$user = $_GET["user"];
 
 $db = mysqli_connect( 'localhost', 'root', 'root','HD15_sunburst') or die("Cannot connect to the Database");
-$query ="select chart_id,chart_name from charts where user_id = '$user_id'";
-$result = mysqli_query($db,$query) or die("Cannot execute the Select");
+$query ="select chart_id,chart_name,chart_json from charts where user = '$user' order by created_dt desc"; 
 
-if(mysqli_num_rows($result)>1) {
-	header( 'Location: http://localhost/HD15_sunburst/dashboard.html?user='.$user_id ) ;
-} else {
-	header( 'Location: http://localhost/HD15_sunburst/' ) ;
+$resultset = mysqli_query($db,$query) or die("Cannot execute the Select");
+$results = array();
+ 
+if ($resultset) {
+    while ($record = mysqli_fetch_assoc($resultset)) {
+    	$results[] = array("chart_name"=>$record['chart_name'],"chart_json"=>$record['chart_json']);
+    }
 }
 
+echo json_encode($results);
 mysqli_close($db);
 
 ?>

@@ -1,20 +1,28 @@
-function getAllChartsForUser() {
-	
-	/*var userid = decodeURIComponent(window.location.search.match(/(\?|&)user\=([^&]*)/)[2]);
-	var xmlhttp;
-	if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
-    } else {
-        // code for IE6, IE5
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-        }
-    }
-    
-    xmlhttp.open("GET","getJSONFromDb.php?userid=".userid,true);
-    xmlhttp.send();*/
+$(document).ready(
+		function() {
+			var user = getURLParameter('user');
+			// call the php that has the php array which is json_encoded
+			var url = 'getJSONFromDb.php?user=' + user;
+			$.getJSON(url).done(
+					function(data) {
+						// data will hold the php array as a javascript object
+						$.each(data, function(key, val) {
+							$('ul').append(
+									'<li id="' + key
+											+ '" class="nav-item"><a href="" onclick="JSONtoD3('+val.chart_json+')">'
+											+ val.chart_name + '</a></li>');
+						});
+					});
+
+		});
+
+function getURLParameter(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '='
+			+ '([^&;]+?)(&|#|;|$)').exec(location.search) || [ , "" ])[1]
+			.replace(/\+/g, '%20'))
+			|| null;
+}
+
+function JSONtoD3(json){
+	myJson = json;
 }
