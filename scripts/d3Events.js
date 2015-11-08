@@ -1,6 +1,6 @@
-
-var width = 1000,
-    height = 600,
+var mydiv = document.getElementById("chart");
+var width = mydiv.offsetWidth,
+    height = mydiv.offsetHeight,
     radius = Math.min(width, height) / 2;
 
 var x = d3.scale.linear()
@@ -88,6 +88,7 @@ function computeTextRotation(d) {
 function description(d){
 	 if(!d.hasOwnProperty("description")){
 		    console.log("No description");
+        document.getElementById("contentdisplay").innerHTML="";
 		    return;
 		  }
 	  console.log(d.description);
