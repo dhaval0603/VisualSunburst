@@ -9,7 +9,7 @@ var x = d3.scale.linear()
 var y = d3.scale.linear()
     .range([0, radius]);
 
-var color = d3.scale.category20c();
+var color = d3.scale.category20b();
 
 var svg = d3.select("#chart").append("svg")
     .attr("width", width)
@@ -27,10 +27,21 @@ var arc = d3.svg.arc()
     .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
 d3.json("json/sample1.json", function(error, root) {
+  console.log("Root: " + root);
   var g = svg.selectAll("g").data(partition.nodes(root)).enter().append("g");
 
   var path = g.append("path").attr("d", arc).style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-    .on("click", click);
+    .style("opacity", 0.8)
+    .on("click", click)
+    .on("mouseover", function (d) {
+        d3.select(this.parentNode).select("path")
+          .style("fill", "blue")
+          .style("opacity", 1);
+      })
+    .on("mouseout", function (d) {
+        d3.select(this.parentNode).select("path")
+          .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+          .style("opacity", 0.8);})
 
   var text = g.append("text")
     .attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
@@ -39,8 +50,11 @@ d3.json("json/sample1.json", function(error, root) {
     .attr("dy", ".35em") // vertical-align
     .text(function(d) { return d.name;});
 
+  description(root);
+
   function click(d) {
     description(d);
+    console.log("Children:" + d.children);
     // fade out all text elements
     text.transition().attr("opacity", 0);
 
@@ -59,6 +73,7 @@ d3.json("json/sample1.json", function(error, root) {
               .attr("x", function(d) { return y(d.y); });
           }
       });
+      console.log("D.radius: " + d.innerRadius);
   }
 });
 
@@ -77,7 +92,10 @@ function arcTween(d) {
 }
 
 function computeTextRotation(d) {
-  return (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
+  var rotation = (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
+  console.log("Name: " + d.name + " Rotation: " + rotation);
+  console.log("y(d.y): " + y(d.y));
+  return rotation;
 }
 
 function description(d){
