@@ -17,8 +17,8 @@ body {
 #content {
 	width:40%;
 	height:100%;
-	font-family: 'Arvo', sans-serif; 
-	font-size: 30;
+	font-family: 'Arvo', sans-serif;
+	font-size: 25;
 	float:right;
 }
 #content:
@@ -37,7 +37,7 @@ body {
   bottom: 0;
   left: 0;
   z-index: 0;
-  
+
   /* non-critical appearance styles */
   list-style: none;
   background: white;
@@ -76,7 +76,7 @@ body {
   bottom: 100%;
   left: 0;
   z-index: 1;
-  
+
   /* non-critical apperance styles */
   padding: 4em;
   background-image: white;
@@ -95,7 +95,7 @@ label[for="nav-trigger"] {
   position: fixed;
   left: 15px; top: 15px;
   z-index: 2;
-  
+
   /* non-critical apperance styles */
   height: 30px;
   width: 30px;

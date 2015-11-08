@@ -9,7 +9,7 @@ var x = d3.scale.linear()
 var y = d3.scale.linear()
     .range([0, radius]);
 
-var color = d3.scale.category20b();
+var color = d3.scale.category20();
 
 var svg = d3.select("#chart").append("svg")
     .attr("width", width)
@@ -26,7 +26,7 @@ var arc = d3.svg.arc()
     .innerRadius(function(d) { return Math.max(0, y(d.y)); })
     .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
-d3.json("json/sample1.json", function(error, root) {
+d3.json("json/visualslideshow.json", function(error, root) {
   console.log("Root: " + root);
   var g = svg.selectAll("g").data(partition.nodes(root)).enter().append("g");
 
