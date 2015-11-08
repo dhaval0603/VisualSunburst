@@ -14,12 +14,16 @@ body {
 	height:80%;
 	float:left;
 }
-#content:not(:empty) {
+#content {
 	width:40%;
 	height:100%;
+	font-family: 'Arvo', sans-serif; 
+	font-size: 30;
 	float:right;
-	border: none/*solid 1px #dcdcdc*/;
-  transition: box-shadow 0.3s, border 0.3s;
+}
+#content:
+@keyframes slide_animation {
+
 }
 
 /* Navigation Menu - Background */
