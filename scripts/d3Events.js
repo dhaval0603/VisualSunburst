@@ -31,17 +31,15 @@ d3.json("json/sample1.json", function(error, root) {
   var g = svg.selectAll("g").data(partition.nodes(root)).enter().append("g");
 
   var path = g.append("path").attr("d", arc).style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-    .style("opacity", 0.8)
     .on("click", click)
     .on("mouseover", function (d) {
         d3.select(this.parentNode).select("path")
-          .style("fill", "blue")
-          .style("opacity", 1);
+          .style("fill", "blue");
       })
     .on("mouseout", function (d) {
         d3.select(this.parentNode).select("path")
           .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-          .style("opacity", 0.8);})
+          ;})
 
   var text = g.append("text")
     .attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
