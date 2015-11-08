@@ -86,5 +86,28 @@ function computeTextRotation(d) {
 }
 
 function description(d){
-	document.getElementById("contentdisplay").innerHTML = d.description;
+	 if(!d.hasOwnProperty("description")){
+		    console.log("No description");
+		    return;
+		  }
+		  console.log(d.description);
+		  var title = document.createElement('h1');
+		  var t = document.createTextNode(d.name);
+		  title.appendChild(t);
+		  var list = document.createElement('ul');
+
+		  for(var i = 0; i < d.description.length; i++) {
+		      // Create the list item:
+		      var item = document.createElement('li');
+
+		      // Set its contents:
+		      item.appendChild(document.createTextNode(d.description[i]));
+
+		      // Add it to the list:
+		      list.appendChild(item);
+		  }
+		  console.log(list);
+		  document.getElementById("contentdisplay").appendChild(title);
+		  document.getElementById("contentdisplay").appendChild(list);
 }
+
