@@ -81,9 +81,9 @@ function computeTextRotation(d) {
 }
 
 function description(d){
+  document.getElementById("contentdisplay").innerHTML="";
 	 if(!d.hasOwnProperty("description")){
 		    console.log("No description");
-        document.getElementById("contentdisplay").innerHTML="";
 		    return;
 		  }
 	  console.log(d.description);
