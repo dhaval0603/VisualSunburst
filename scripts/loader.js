@@ -35,24 +35,4 @@ function getJsonFromDB(chart_id){
 	       },
 	       async: false
 	  });
-	 jsonToD3(json);
-}
-
-function jsonToD3(json) {
-	
-	var jsonObject = JSON.parse(json);
-	$.ajax({
-	       url: "chartGenerator.php",
-	       data: {'json' : json},
-	       type: 'post',
-	       success: function (data) {
-		         $.globalEval(data);
-	    	   document.getElementById("chart").innerHTML = data;
-
-	       },
-	       error: function(xhr, ajaxOptions, thrownError){
-	    	   document.getElementById("chart").innerHTML = "Failed to Load";
-	       },
-	       async: false
-	  });
 }
