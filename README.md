@@ -1,2 +1,2 @@
-# sunburst
+# Visual Sunburst
 Sunburst Visualisation Project
